@@ -23,18 +23,10 @@
   gap: 12px;
 }
 
-.form-error {
-  color: var(--danger);
-  font-size: 0.82rem;
-  margin-bottom: 10px;
-}
+.form-error   { color: var(--danger);  font-size: 0.82rem; margin-bottom: 10px; }
+.form-success { color: var(--success); font-size: 0.82rem; margin-bottom: 10px; }
 
-.form-success {
-  color: var(--success);
-  font-size: 0.82rem;
-  margin-bottom: 10px;
-}
-
+/* History list */
 .workout-history {
   display: flex;
   flex-direction: column;
@@ -68,6 +60,23 @@
   font-size: 0.8rem;
   color: var(--text-faint);
   font-style: italic;
+}
+
+.row-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Inline edit form */
+.edit-form {
+  width: 100%;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
 }
 
 @media (max-width: 800px) {
