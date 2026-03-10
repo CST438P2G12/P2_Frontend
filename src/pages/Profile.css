@@ -1,0 +1,61 @@
+.profile-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.form-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.profile-static {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  padding: 11px 0;
+}
+
+.form-error  { color: var(--danger);  font-size: 0.82rem; margin-bottom: 12px; }
+.form-success { color: var(--success); font-size: 0.82rem; margin-bottom: 12px; }
+
+/* Danger zone */
+.danger-zone {
+  border-color: rgba(255, 92, 92, 0.2);
+}
+
+.danger-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--danger);
+  margin-bottom: 10px;
+}
+
+.danger-desc {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.confirm-delete {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.confirm-text {
+  font-size: 0.875rem;
+  color: var(--danger);
+}
+
+.confirm-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 700px) {
+  .profile-layout { grid-template-columns: 1fr; }
+}

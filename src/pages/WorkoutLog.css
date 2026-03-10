@@ -1,0 +1,80 @@
+.workout-layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.workout-form-card {
+  position: sticky;
+  top: 88px;
+}
+
+.form-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-error {
+  color: var(--danger);
+  font-size: 0.82rem;
+  margin-bottom: 10px;
+}
+
+.form-success {
+  color: var(--success);
+  font-size: 0.82rem;
+  margin-bottom: 10px;
+}
+
+.workout-history {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.workout-history-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+}
+
+.workout-history-info {
+  flex: 1;
+}
+
+.workout-date {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.workout-stats {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.workout-notes {
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  font-style: italic;
+}
+
+@media (max-width: 800px) {
+  .workout-layout {
+    grid-template-columns: 1fr;
+  }
+  .workout-form-card {
+    position: static;
+  }
+}

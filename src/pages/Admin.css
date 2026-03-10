@@ -1,0 +1,57 @@
+.admin-message {
+  font-size: 0.875rem;
+  color: var(--success);
+  margin-bottom: 16px;
+}
+
+.admin-table-header,
+.admin-table-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 100px 200px;
+  gap: 16px;
+  align-items: center;
+  padding: 12px 16px;
+}
+
+.admin-table-header {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  font-weight: 500;
+  padding-bottom: 14px;
+  margin-bottom: 4px;
+}
+
+.admin-table-row {
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: background 0.15s ease;
+}
+.admin-table-row:last-child { border-bottom: none; }
+.admin-table-row:hover { background: rgba(255,255,255,0.02); border-radius: var(--radius-sm); }
+
+.user-id {
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  font-family: monospace;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.admin-actions {
+  display: flex;
+  gap: 8px;
+}
+
+@media (max-width: 700px) {
+  .admin-table-header { display: none; }
+  .admin-table-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 16px;
+  }
+}
