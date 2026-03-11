@@ -149,6 +149,24 @@ export default function Admin() {
                         <span className="user-info-label">Role</span>
                         <span className="user-info-value">{u.admin ? 'Administrator' : 'Regular User'}</span>
                       </div>
+                      <div className="user-info-item">
+                        <span className="user-info-label">Toggle Admin</span>
+                        <button
+                          className={`btn ${u.admin ? 'btn-danger' : 'btn-secondary'}`}
+                          style={{ fontSize: '0.78rem', padding: '5px 12px', marginTop: '2px' }}
+                          onClick={async () => {
+                            await fetch('/admin/updateUser', {
+                              method: 'PUT',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({ ...u, admin: !u.admin })
+                            })
+                            setMessage(`${u.name} is ${!u.admin ? 'now an admin' : 'no longer an admin'}.`)
+                            fetchUsers()
+                          }}
+                        >
+                          {u.admin ? 'Remove Admin' : 'Make Admin'}
+                        </button>
+                      </div>
                     </div>
 
                     {/* Confirm delete - satisfies #10 */}
