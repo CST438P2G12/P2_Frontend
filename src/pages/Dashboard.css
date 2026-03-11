@@ -19,6 +19,46 @@
   margin-top: 6px;
 }
 
+/* Analytics highlight row */
+.analytics-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.analytics-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+}
+
+.analytics-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.analytics-card .stat-value {
+  display: block;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.analytics-card .stat-label {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* Totals grid */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -46,6 +86,11 @@
   color: var(--accent);
   letter-spacing: 0.02em;
   line-height: 1;
+}
+
+.stat-unit {
+  font-size: 1rem;
+  color: var(--text-muted);
 }
 
 .section-header {
@@ -103,7 +148,12 @@
   font-size: 0.9rem;
 }
 
-@media (max-width: 700px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 900px) {
+  .analytics-row { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid    { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 500px) {
+  .analytics-row { grid-template-columns: 1fr 1fr; }
   .dashboard-header { flex-direction: column; gap: 16px; }
 }
