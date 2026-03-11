@@ -4,10 +4,15 @@
   margin-bottom: 16px;
 }
 
+.user-count {
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}
+
 .admin-table-header,
 .admin-table-row {
   display: grid;
-  grid-template-columns: 60px 1fr 100px 200px;
+  grid-template-columns: 60px 1fr 100px 240px;
   gap: 16px;
   align-items: center;
   padding: 12px 16px;
@@ -28,8 +33,10 @@
   border-bottom: 1px solid rgba(255,255,255,0.04);
   transition: background 0.15s ease;
 }
-.admin-table-row:last-child { border-bottom: none; }
-.admin-table-row:hover { background: rgba(255,255,255,0.02); border-radius: var(--radius-sm); }
+.admin-table-row:hover {
+  background: rgba(255,255,255,0.02);
+  border-radius: var(--radius-sm);
+}
 
 .user-id {
   font-size: 0.8rem;
@@ -44,7 +51,75 @@
 
 .admin-actions {
   display: flex;
-  gap: 8px;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Expanded user info panel */
+.user-info-panel {
+  margin: 0 16px 12px;
+  padding: 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  animation: fadeUp 0.2s ease forwards;
+}
+
+.user-info-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.user-info-grid {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.user-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.user-info-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+
+.user-info-value {
+  font-size: 0.9rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Confirm delete inside panel */
+.confirm-delete-panel {
+  border-top: 1px solid rgba(255, 92, 92, 0.2);
+  padding-top: 16px;
+  margin-top: 4px;
+}
+
+.confirm-text {
+  font-size: 0.875rem;
+  color: var(--danger);
+  margin-bottom: 12px;
+}
+
+.confirm-text strong {
+  color: var(--text);
+}
+
+.confirm-buttons {
+  display: flex;
+  gap: 10px;
 }
 
 @media (max-width: 700px) {
@@ -54,4 +129,5 @@
     gap: 8px;
     padding: 16px;
   }
+  .user-info-grid { flex-direction: column; gap: 12px; }
 }
