@@ -1,8 +1,20 @@
 import { useEffect, useState } from 'react'
+import {useNavigate} from 'react-router-dom'
 import './Login.css'
 
 export default function Login() {
+  const navigate = useNavigate()
   const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    fetch('/api/auth/me',
+        {credentials: 'include'})
+        .then((res) => {
+          if (res.ok) navigate('/dashboard');
+        })
+        .catch((err) => {
+          console.log("Error fetching credentials")})
+  }, []);
 
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 50)
@@ -10,7 +22,7 @@ export default function Login() {
   }, [])
 
   const handleGoogleLogin = () => {
-    window.location.href = '/login/oauth2/authorization/google'
+    window.location.href = 'http://localhost:8080/oauth2/authorization/google'
   }
 
   return (

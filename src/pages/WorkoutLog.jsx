@@ -34,15 +34,16 @@ export default function WorkoutLog() {
     setError(''); setSuccess(''); setSubmitting(true)
     try {
       const res = await fetch('/api/addWorkout', {
+        credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           userId,
+          name: form.name,
           date: form.date,
           sets: Number(form.sets),
           repsPerSet: Number(form.repsPerSet),
           durationMinutes: Number(form.durationMinutes),
-          notes: form.notes
         })
       })
       if (!res.ok) throw new Error()
@@ -86,11 +87,11 @@ export default function WorkoutLog() {
         body: JSON.stringify({
           id,
           userId,
+          name: editForm.name,
           date: editForm.date,
           sets: Number(editForm.sets),
           repsPerSet: Number(editForm.repsPerSet),
-          durationMinutes: Number(editForm.durationMinutes),
-          notes: editForm.notes
+          durationMinutes: Number(editForm.durationMinutes)
         })
       })
       if (!res.ok) throw new Error()
@@ -114,6 +115,10 @@ export default function WorkoutLog() {
             <h2 className="form-title">Log a Workout</h2>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
+                <label>Name</label>
+                <input className="input" type="text" name="name" value={form.date} onChange={handleChange} required placeholder="e.g. Deadlift" />
+              </div>
+              <div className="form-group">
                 <label>Date</label>
                 <input className="input" type="date" name="date" value={form.date} onChange={handleChange} required />
               </div>
@@ -130,10 +135,6 @@ export default function WorkoutLog() {
               <div className="form-group">
                 <label>Duration (minutes)</label>
                 <input className="input" type="number" name="durationMinutes" value={form.durationMinutes} onChange={handleChange} min="1" required placeholder="e.g. 45" />
-              </div>
-              <div className="form-group">
-                <label>Notes (optional)</label>
-                <input className="input" type="text" name="notes" value={form.notes} onChange={handleChange} placeholder="e.g. Leg day, felt great" />
               </div>
               {error   && <p className="form-error">{error}</p>}
               {success && <p className="form-success">{success}</p>}
@@ -158,6 +159,10 @@ export default function WorkoutLog() {
                     <div className="edit-form">
                       <div className="form-row">
                         <div className="form-group">
+                          <label>Exercise</label>
+                          <input className="input" type="name" name="name" value={editform.name} onChange={handleEditChange} />
+                        </div>
+                        <div className="form-group">
                           <label>Date</label>
                           <input className="input" type="date" name="date" value={editForm.date} onChange={handleEditChange} />
                         </div>
@@ -175,10 +180,6 @@ export default function WorkoutLog() {
                           <label>Reps per Set</label>
                           <input className="input" type="number" name="repsPerSet" value={editForm.repsPerSet} onChange={handleEditChange} min="1" />
                         </div>
-                      </div>
-                      <div className="form-group">
-                        <label>Notes</label>
-                        <input className="input" type="text" name="notes" value={editForm.notes} onChange={handleEditChange} placeholder="Optional notes" />
                       </div>
                       {editError && <p className="form-error">{editError}</p>}
                       <div className="edit-actions">
