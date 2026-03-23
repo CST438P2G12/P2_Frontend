@@ -47,7 +47,10 @@ export default function Dashboard() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetchWorkouts()
+        fetchWorkouts().then(workouts => setWorkouts(workouts))
+            .then(() => {
+                setLoading(false)
+            })
         // let result
         // fetch('/api/auth/me',
         //     {credentials: 'include'})
@@ -63,7 +66,7 @@ export default function Dashboard() {
         //     .catch(() => setLoading(false))
     }, [])
 
-    const fetchUsers = async () => {
+    const fetchUser = async () => {
         try {
             const res = await fetch('/api/auth/me',
                 {credentials: 'include'})
@@ -71,17 +74,17 @@ export default function Dashboard() {
                 throw new error(res.message)
             }
 
-            const data = await res.json();
-            return data.id
-        } catch(error) {
+            return await res.json()
+        } catch (error) {
             console.log('Failed to fetch users')
         }
     }
 
     const fetchWorkouts = async () => {
-        const id = await fetchUsers()
-        if (id !== null) {
+        const result = await fetchUser()
+        if (result !== null) {
             try {
+                const id = result.id
                 const res = await fetch(`/api/getWorkoutsByUser?userId=${id}`,
                     {credentials: 'include'})
                 if (!res.ok) {
@@ -89,9 +92,8 @@ export default function Dashboard() {
                 }
 
                 const data = await res.json();
-                setWorkouts(data)
-                setLoading(false)
-            } catch(error) {
+                return data
+            } catch (error) {
                 console.log('Failed to fetch workouts')
             }
         }
