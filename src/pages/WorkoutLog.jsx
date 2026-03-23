@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar'
 import './WorkoutLog.css'
 
 const EMPTY_FORM = { date: '', sets: '', repsPerSet: '', durationMinutes: '', notes: '' }
-const userId = 1 // Replace with auth context user ID
+// const userId = 1 // Replace with auth context user ID
 
 export default function WorkoutLog() {
   const [workouts, setWorkouts]     = useState([])
@@ -16,14 +16,45 @@ export default function WorkoutLog() {
   const [editForm, setEditForm]     = useState({})
   const [editError, setEditError]   = useState('')
 
-  const fetchWorkouts = () => {
-    fetch(`/api/getWorkoutsByUser?userId=${userId}`)
-      .then(res => res.json())
-      .then(data => { setWorkouts(data); setLoading(false) })
-      .catch(() => setLoading(false))
+  useEffect(() => {
+    fetchWorkouts().then(workouts => setWorkouts(workouts))
+        .then(() => {
+          setLoading(false)
+        })
+  }, [])
+
+  const fetchUser = async () => {
+    try {
+      const res = await fetch('/api/auth/me',
+          {credentials: 'include'})
+      if (!res.ok) {
+        throw new error(res.message)
+      }
+
+      return await res.json()
+    } catch (error) {
+      console.log('Failed to fetch users')
+    }
   }
 
-  useEffect(() => { fetchWorkouts() }, [])
+  const fetchWorkouts = async () => {
+    const result = await fetchUser()
+    if (result !== null) {
+      try {
+        const id = result.id
+        const res = await fetch(`/api/getWorkoutsByUser?userId=${id}`,
+            {credentials: 'include'})
+        if (!res.ok) {
+          throw new error(res.message)
+        }
+
+        const data = await res.json();
+        return data
+      } catch (error) {
+        console.log('Failed to fetch workouts')
+      }
+    }
+  }
 
   const handleChange = e => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))

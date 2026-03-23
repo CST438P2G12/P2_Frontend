@@ -13,7 +13,7 @@ export default function Admin() {
   const [confirmDeleteId, setConfirmDeleteId] = useState(null)
 
   const fetchUsers = () => {
-    fetch('/admin/getAllUsers')
+    fetch('/api/admin/getAllUsers')
       .then(res => res.json())
       .then(data => { setUsers(data); setLoading(false) })
       .catch(() => setLoading(false))
@@ -22,7 +22,7 @@ export default function Admin() {
   useEffect(() => { fetchUsers() }, [])
 
   const handleDelete = async (id) => {
-    await fetch(`/admin/deleteUser?id=${id}`, { method: 'DELETE' })
+    await fetch(`/api/admin/deleteUser?id=${id}`, { method: 'DELETE' })
     setMessage('User deleted.')
     setConfirmDeleteId(null)
     setExpandedId(null)
@@ -38,7 +38,7 @@ export default function Admin() {
   const handleSaveEdit = async () => {
     setSaving(true)
     try {
-      await fetch('/admin/updateUser', {
+      await fetch('/api/admin/updateUser', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...editingUser, name: editName })

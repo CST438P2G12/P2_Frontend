@@ -51,19 +51,6 @@ export default function Dashboard() {
             .then(() => {
                 setLoading(false)
             })
-        // let result
-        // fetch('/api/auth/me',
-        //     {credentials: 'include'})
-        //     .then(res => result = res.json())
-        // console.log(result)
-        // const userId = 3
-        // fetch(`/api/getWorkoutsByUser?userId=${userId}`)
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         setWorkouts(data);
-        //         setLoading(false)
-        //     })
-        //     .catch(() => setLoading(false))
     }, [])
 
     const fetchUser = async () => {
