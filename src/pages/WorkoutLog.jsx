@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import Navbar from '../components/Navbar'
 import './WorkoutLog.css'
+import {useNavigate} from "react-router-dom";
 
 const EMPTY_FORM = {exerciseName: '', sets: '', reps: ''}
 
@@ -15,6 +16,7 @@ export default function WorkoutLog() {
     const [editingId, setEditingId] = useState(null)
     const [editForm, setEditForm] = useState({})
     const [editError, setEditError] = useState('')
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetchWorkouts().then(workouts => setWorkouts(workouts))
@@ -41,6 +43,7 @@ export default function WorkoutLog() {
             return await res.json()
         } catch (error) {
             console.log('Failed to fetch users')
+            navigate('/unauthorized')
         }
     }
 

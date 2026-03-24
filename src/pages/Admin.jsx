@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import Navbar from '../components/Navbar'
 import './Admin.css'
+import {useNavigate} from "react-router-dom";
 
 export default function Admin() {
     const [users, setUsers] = useState([])
@@ -11,10 +12,38 @@ export default function Admin() {
     const [saving, setSaving] = useState(false)
     const [message, setMessage] = useState('')
     const [confirmDeleteId, setConfirmDeleteId] = useState(null)
+    const navigate = useNavigate()
+
+    const fetchUser = async () => {
+        try {
+            const res = await fetch('/api/auth/me',
+                {credentials: 'include'})
+            if (!res.ok) {
+                throw new error(res.message)
+            }
+
+            const result = await res.json()
+            return result
+        } catch (error) {
+            if (error.response.status === 403) {
+                navigate('/forbidden')
+            }
+            console.log('Failed to fetch users')
+            navigate('/unauthorized')
+        }
+    }
 
     const fetchUsers = () => {
+        fetchUser()
         fetch('/api/admin/getAllUsers')
-            .then(res => res.json())
+            .then(res => {
+                {
+                    if (res.status === 403) {
+                        navigate('/forbidden')
+                    }
+                }
+                res.json()
+            })
             .then(data => {
                 setUsers(data);
                 setLoading(false)

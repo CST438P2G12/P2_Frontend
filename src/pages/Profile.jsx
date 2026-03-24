@@ -33,6 +33,7 @@ export default function Profile() {
             return await res.json()
         } catch (error) {
             console.log('Failed to fetch users')
+            navigate('/unauthorized')
         }
     }
 
