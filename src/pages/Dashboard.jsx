@@ -63,7 +63,8 @@ export default function Dashboard() {
 
     const fetchExercises = async () => {
         try {
-            const result = await fetch('/api/getAllExercises')
+            const result = await fetch('/api/getAllExercises',
+                {credentials: 'include'})
             if (!result.ok) {
                 throw new error(result.message)
             }

@@ -42,11 +42,11 @@ export default function Admin() {
                         navigate('/forbidden')
                     }
                 }
-                res.json()
-            })
-            .then(data => {
-                setUsers(data);
-                setLoading(false)
+                res.json().then(r =>
+                {
+                    setUsers(r)
+                    setLoading(false)
+                })
             })
             .catch(() => setLoading(false))
     }

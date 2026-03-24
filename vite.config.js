@@ -24,3 +24,7 @@ export default defineConfig({
         }
     }
 })
+
+//https://p2-backend-7wbr.onrender.com/
+
+//http://localhost:8080
