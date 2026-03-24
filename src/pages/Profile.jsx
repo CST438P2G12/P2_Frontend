@@ -3,11 +3,10 @@ import {useNavigate} from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import './Profile.css'
 
-const userId = 1 // Replace with auth context user ID
-
 export default function Profile() {
     const [user, setUser] = useState(null)
     const [name, setName] = useState('')
+    const [id, setId] = useState('')
     const [saving, setSaving] = useState(false)
     const [deleting, setDeleting] = useState(false)
     const [saveMsg, setSaveMsg] = useState('')
@@ -18,7 +17,8 @@ export default function Profile() {
         fetchUser()
             .then(data => {
                 setUser(data);
-                setName(data.name)
+                setName(data.name);
+                setId(data.id);
             })
     }, [])
 
@@ -41,7 +41,17 @@ export default function Profile() {
         setSaving(true);
         setSaveMsg('')
         try {
-            const res = await fetch(`/api/editProfile?id=${userId}&name=${encodeURIComponent(name)}`, {method: 'PUT'})
+            const res = await fetch(`/api/user/updateUser/${id}`,
+                {
+                    method: 'PATCH',
+                    credentials: 'include',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name
+                    })
+                })
             if (!res.ok) throw new Error()
             setSaveMsg('Profile updated!')
         } catch {
