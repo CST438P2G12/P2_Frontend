@@ -5,7 +5,7 @@ import './Dashboard.css'
 
 // const userId = 3 // Replace with auth context user ID
 
-function computeAnalytics(workouts) {
+function computeAnalytics(workouts, exercises) {
     if (!workouts.length) return {thisWeek: 0, streak: 0, totalSets: 0, totalReps: 0}
 
     // Workouts this week (Mon–Sun)
@@ -35,14 +35,15 @@ function computeAnalytics(workouts) {
         }
     }
 
-    const totalSets = workouts.reduce((s, w) => s + w.sets, 0)
-    const totalReps = workouts.reduce((s, w) => s + w.sets * w.repsPerSet, 0)
+    const totalSets = exercises.reduce((s, w) => s + w.sets, 0)
+    const totalReps = exercises.reduce((s, w) => s + w.sets * w.reps, 0)
 
     return {thisWeek, streak, totalSets, totalReps}
 }
 
 export default function Dashboard() {
     const [workouts, setWorkouts] = useState([])
+    const [exercises, setExercises] = useState([])
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
 
@@ -52,6 +53,25 @@ export default function Dashboard() {
                 setLoading(false)
             })
     }, [])
+
+    useEffect(() => {
+        fetchExercises(workouts).then(exercises => setExercises(exercises))
+            .then(() => {
+                setLoading(false)
+            })
+    }, [])
+
+    const fetchExercises = async () => {
+        try {
+            const result = await fetch('/api/getAllExercises')
+            if (!result.ok) {
+                throw new error(result.message)
+            }
+            return await result.json()
+        } catch (error) {
+            console.log('Error fetching exercises')
+        }
+    }
 
     const fetchUser = async () => {
         try {
@@ -86,7 +106,7 @@ export default function Dashboard() {
         }
     }
 
-    const {thisWeek, streak, totalSets, totalReps} = computeAnalytics(workouts)
+    const {thisWeek, streak, totalSets, totalReps} = computeAnalytics(workouts, exercises)
 
     return (
         <div className="page">
@@ -102,33 +122,12 @@ export default function Dashboard() {
                     </button>
                 </div>
 
-                {/* Analytics highlight row */}
-                <div className="analytics-row">
-                    <div className="analytics-card card">
-                        <span className="analytics-icon">🔥</span>
-                        <div>
-                            <span className="stat-value">{streak}</span>
-                            <span className="stat-label">Day Streak</span>
-                        </div>
-                    </div>
-                    <div className="analytics-card card">
-                        <span className="analytics-icon">📅</span>
-                        <div>
-                            <span className="stat-value">{thisWeek}</span>
-                            <span className="stat-label">This Week</span>
-                        </div>
-                    </div>
-                    <div className="analytics-card card">
-                        <span className="analytics-icon">💪</span>
-                        <div>
-                            <span className="stat-value">{workouts.length}</span>
-                            <span className="stat-label">Total Workouts</span>
-                        </div>
-                    </div>
-                </div>
-
                 {/* Totals row */}
                 <div className="stats-grid">
+                    <div className="stat-card card">
+                        <span className="stat-label">Total Workouts</span>
+                        <span className="stat-value">{workouts.length}</span>
+                    </div>
                     <div className="stat-card card">
                         <span className="stat-label">Total Sets</span>
                         <span className="stat-value">{totalSets}</span>
@@ -168,11 +167,20 @@ export default function Dashboard() {
                         {[...workouts].reverse().slice(0, 5).map(w => (
                             <div key={w.id} className="workout-row card">
                                 <div className="workout-date">{w.date}</div>
-                                <div className="workout-stats">
-                                    <span className="badge badge-accent">{w.sets} sets</span>
-                                    <span className="badge badge-blue">{w.repsPerSet} reps</span>
-                                </div>
-                                {w.notes && <div className="workout-notes">{w.notes}</div>}
+                                {
+                                    loading ? (<p className="empty-state">Loading...</p>)
+                                        : exercises.length === 0 ? (
+                                                <p className="empty-state">No exercises for this workout yet.</p>)
+                                            : exercises.map((e) => (
+                                                e.workoutId === w.id ?
+                                                    <div className="workout-stats">
+                                                        <span className="badge badge-primary">{e.exerciseName}</span>
+                                                        <span className="badge badge-accent">{e.sets} sets</span>
+                                                        <span className="badge badge-blue">{e.reps} reps</span>
+                                                    </div>
+                                                    : null
+                                            ))
+                                }
                             </div>
                         ))}
                     </div>
