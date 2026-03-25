@@ -7,17 +7,17 @@ export default defineConfig({
         port: 3000,
         proxy: {
             '/api': {
-                target: 'https://p2-backend-7wbr.onrender.com/',
+                target: 'http://localhost:8080',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/api/, '')
             },
             '/oauth2': {
-                target: 'https://p2-backend-7wbr.onrender.com/',
+                target: 'http://localhost:8080',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/oauth2/, '')
             },
             '/login': {
-                target: 'https://p2-backend-7wbr.onrender.com/',
+                target: 'http://localhost:8080',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/login/, '')
             },

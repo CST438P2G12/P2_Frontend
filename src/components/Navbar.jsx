@@ -12,7 +12,7 @@ export default function Navbar({isAdmin = false}) {
 
     const fetchAdmin = async () => {
         try {
-            const res = await fetch('/api/auth/me',
+            const res = await fetch('https://p2-backend-7wbr.onrender.com/auth/me',
                 {credentials: 'include'})
             if (!res.ok) {
                 throw new error(res.message)
@@ -27,7 +27,7 @@ export default function Navbar({isAdmin = false}) {
 
     const handleLogout = () => {
         // Spring Boot OAuth2 logout endpoint
-        window.location.href = 'http://localhost:8080/logout'
+        window.location.href = 'https://p2-backend-7wbr.onrender.com/logout'
     }
 
     return (

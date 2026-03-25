@@ -7,7 +7,7 @@ export default function Login() {
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    fetch('/api/auth/me',
+    fetch('https://p2-backend-7wbr.onrender.com/auth/me',
         {credentials: 'include'})
         .then((res) => {
           if (res.ok) navigate('/dashboard');
@@ -22,7 +22,7 @@ export default function Login() {
   }, [])
 
   const handleGoogleLogin = () => {
-    window.location.href = '/login/oauth2/authorization/google'
+    window.location.href = 'https://p2-backend-7wbr.onrender.com/oauth2/authorization/google'
   }
 
   return (

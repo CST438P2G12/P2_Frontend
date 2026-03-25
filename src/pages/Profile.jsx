@@ -24,7 +24,7 @@ export default function Profile() {
 
     const fetchUser = async () => {
         try {
-            const res = await fetch('/api/auth/me',
+            const res = await fetch('https://p2-backend-7wbr.onrender.com/auth/me',
                 {credentials: 'include'})
             if (!res.ok) {
                 throw new error(res.message)
@@ -42,7 +42,7 @@ export default function Profile() {
         setSaving(true);
         setSaveMsg('')
         try {
-            const res = await fetch(`/api/user/updateUser/${id}`,
+            const res = await fetch(`https://p2-backend-7wbr.onrender.com/user/updateUser/${id}`,
                 {
                     method: 'PATCH',
                     credentials: 'include',
@@ -65,7 +65,7 @@ export default function Profile() {
     const handleDelete = async () => {
         setDeleting(true)
         try {
-            await fetch(`/api/deleteMyAccount?id=${userId}`, {method: 'DELETE'})
+            await fetch(`https://p2-backend-7wbr.onrender.com/deleteMyAccount?id=${userId}`, {method: 'DELETE'})
             window.location.href = '/login'
         } catch {
             setDeleting(false)
