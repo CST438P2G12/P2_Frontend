@@ -63,7 +63,7 @@ export default function Dashboard() {
 
     const fetchExercises = async () => {
         try {
-            const result = await fetch('/api/getAllExercises',
+            const result = await fetch('https://p2-backend-7wbr.onrender.com/getAllExercises',
                 {credentials: 'include'})
             if (!result.ok) {
                 throw new error(result.message)
@@ -76,7 +76,7 @@ export default function Dashboard() {
 
     const fetchUser = async () => {
         try {
-            const res = await fetch('/api/auth/me',
+            const res = await fetch('https://p2-backend-7wbr.onrender.com/auth/me',
                 {credentials: 'include'})
             if (!res.ok) {
                 throw new error(res.message)
@@ -94,7 +94,7 @@ export default function Dashboard() {
         if (result !== null) {
             try {
                 const id = result.id
-                const res = await fetch(`/api/getWorkoutsByUser?userId=${id}`,
+                const res = await fetch(`https://p2-backend-7wbr.onrender.com/getWorkoutsByUser?userId=${id}`,
                     {credentials: 'include'})
                 if (!res.ok) {
                     throw new error(res.message)

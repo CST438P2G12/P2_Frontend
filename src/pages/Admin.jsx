@@ -16,7 +16,7 @@ export default function Admin() {
 
     const fetchUser = async () => {
         try {
-            const res = await fetch('/api/auth/me',
+            const res = await fetch('https://p2-backend-7wbr.onrender.com/auth/me',
                 {credentials: 'include'})
             if (!res.ok) {
                 throw new error(res.message)
@@ -35,15 +35,15 @@ export default function Admin() {
 
     const fetchUsers = () => {
         fetchUser()
-        fetch('/api/admin/getAllUsers')
+        fetch('https://p2-backend-7wbr.onrender.com/admin/getAllUsers',
+            {credentials: 'include'})
             .then(res => {
                 {
                     if (res.status === 403) {
                         navigate('/forbidden')
                     }
                 }
-                res.json().then(r =>
-                {
+                res.json().then(r => {
                     setUsers(r)
                     setLoading(false)
                 })
@@ -56,7 +56,7 @@ export default function Admin() {
     }, [])
 
     const handleDelete = async (id) => {
-        await fetch(`/api/admin/deleteUser/${id}`, {
+        await fetch(`https://p2-backend-7wbr.onrender.com/admin/deleteUser/${id}`, {
             method: 'DELETE',
             credentials: 'include'
         })
@@ -75,7 +75,7 @@ export default function Admin() {
     const handleSaveEdit = async () => {
         setSaving(true)
         try {
-            await fetch(`/api/user/updateUser/${editingUser.id}`, {
+            await fetch(`https://p2-backend-7wbr.onrender.com/user/updateUser/${editingUser.id}`, {
                 method: 'PATCH',
                 headers: {'Content-Type': 'application/json'},
                 credentials: 'include',
@@ -200,7 +200,7 @@ export default function Admin() {
                                                     className={`btn ${u.admin ? 'btn-danger' : 'btn-secondary'}`}
                                                     style={{fontSize: '0.78rem', padding: '5px 12px', marginTop: '2px'}}
                                                     onClick={async () => {
-                                                        await fetch(`/api/admin/updateUser/${u.id}`, {
+                                                        await fetch(`https://p2-backend-7wbr.onrender.com/admin/updateUser/${u.id}`, {
                                                             method: 'PATCH',
                                                             headers: {'Content-Type': 'application/json'},
                                                             credentials: 'include',

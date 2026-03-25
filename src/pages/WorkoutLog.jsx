@@ -34,7 +34,7 @@ export default function WorkoutLog() {
 
     const fetchUser = async () => {
         try {
-            const res = await fetch('/api/auth/me',
+            const res = await fetch('https://p2-backend-7wbr.onrender.com/auth/me',
                 {credentials: 'include'})
             if (!res.ok) {
                 throw new error(res.message)
@@ -52,7 +52,7 @@ export default function WorkoutLog() {
         if (result !== null) {
             try {
                 const id = result.id
-                const res = await fetch(`/api/getWorkoutsByUser?userId=${id}`,
+                const res = await fetch(`https://p2-backend-7wbr.onrender.com/getWorkoutsByUser?userId=${id}`,
                     {credentials: 'include'})
                 if (!res.ok) {
                     throw new error(res.message)
@@ -67,7 +67,8 @@ export default function WorkoutLog() {
 
     const fetchExercises = async () => {
         try {
-            const result = await fetch('/api/getAllExercises')
+            const result = await fetch('https://p2-backend-7wbr.onrender.com/getAllExercises',
+                {credentials: 'include'})
             if (!result.ok) {
                 throw new error(result.message)
             }
@@ -89,7 +90,7 @@ export default function WorkoutLog() {
         try {
             const userRes = await fetchUser()
             const userId = userRes.id
-            const res = await fetch('/api/addWorkout', {
+            const res = await fetch('https://p2-backend-7wbr.onrender.com/addWorkout', {
                 credentials: 'include',
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -98,7 +99,7 @@ export default function WorkoutLog() {
                     date: form.date,
                 })
             })
-            const workoutRes = await fetch(`/api/getWorkoutByDate?userId=${userId}&date=${form.date}`,
+            const workoutRes = await fetch(`https://p2-backend-7wbr.onrender.com/getWorkoutByDate?userId=${userId}&date=${form.date}`,
                 {credentials: 'include'})
             if (!workoutRes.ok) {
                 throw new error(workoutRes.message)
@@ -106,7 +107,7 @@ export default function WorkoutLog() {
 
             const workoutData = await workoutRes.json()
             const workoutId = workoutData.id
-            const exerciseRes = await fetch('api/addExercise', {
+            const exerciseRes = await fetch('https://p2-backend-7wbr.onrender.com/addExercise', {
                 credentials: 'include',
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -130,7 +131,7 @@ export default function WorkoutLog() {
     }
 
     const handleDelete = async (id) => {
-        await fetch(`/api/deleteExercise/${id}`, {method: 'DELETE'})
+        await fetch(`https://p2-backend-7wbr.onrender.com/deleteExercise/${id}`, {method: 'DELETE'})
         await fetchWorkouts()
     }
 
@@ -151,7 +152,7 @@ export default function WorkoutLog() {
     const handleEditSaveWorkout = async (id) => {
         setEditError('')
         try {
-            const res = await fetch('/api/updateWorkout', {
+            const res = await fetch('https://p2-backend-7wbr.onrender.com/updateWorkout', {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
